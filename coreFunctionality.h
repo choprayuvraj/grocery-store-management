@@ -306,7 +306,7 @@ public:
     {
 
         cout << "=====================================" << endl;
-        cout << "        Parth aloo pyaaz wala         " << endl;
+        cout << "        Grocery Store - Receipt         " << endl;
         cout << "======================================" << endl;
         cout << "                                    " << endl;
         cout << " Name :" << Name << "                       " << endl;
