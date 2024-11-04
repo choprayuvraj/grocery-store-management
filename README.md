@@ -38,6 +38,11 @@ The Grocery Store Management System is a comprehensive application designed to h
 - **Customer Details**: 
   - Search for customer details using their phone number for billing purposes.
 
+## Tech Stack
+- **Programming Language**: C++
+- **Data Storage**: CSV files for inventory, customer, and employee data.
+- **Development Environment**: Any standard C++ compiler (e.g., g++, Visual Studio).
+
 ## Team Members
 - **Yuvraj Chopra** (282) : Database (CSV files) design; wrote `fileHandling.h` and `coreFunctionality.h`.
 - **Parth Kohli** (312) : Worked on `main.cpp` and assisted with `coreFunctionality.h`.
