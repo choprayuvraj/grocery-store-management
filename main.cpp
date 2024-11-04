@@ -59,7 +59,7 @@ int main()
             else
             {
                 cout << "Invalid choice!" << endl;
-                continue; // Change to continue instead of break
+                continue;
             }
         }
     }
@@ -236,7 +236,7 @@ int main()
             else if (choice == 5)
             {
                 cout << "Exiting admin menu. Thank you!" << endl;
-                break; // Exit the program for admin
+                break; 
             }
             else
             {
@@ -257,7 +257,7 @@ int main()
 
             if (choice == 1)
             {
-                inventorycore.showItemsAlphabetically(); // Assuming this shows all items
+                inventorycore.showItemsAlphabetically();
             }
             else if (choice == 2)
             {
@@ -285,7 +285,7 @@ int main()
             else if (choice == 6)
             {
                 cout << "Thanks for visiting our store, please recommend others to visit here." << endl;
-                break; // Exit the program for customer
+                break;
             }
             else
             {
