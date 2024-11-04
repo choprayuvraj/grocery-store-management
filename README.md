@@ -57,8 +57,8 @@ The Grocery Store Management System is a comprehensive application designed to h
 ### Installation Steps
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/grocery-store-management-system.git
-   cd grocery-store-management-system
+   git clone https://github.com/choprayuvraj/grocery-store-management.git
+   cd grocery-store-management
    ```
 2. **Create the Database Folder:**
 - Manually create a folder named `db` in the root directory of the project. This folder will contain the CSV files for data storage.
