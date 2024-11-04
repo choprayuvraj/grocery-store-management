@@ -39,9 +39,9 @@ The Grocery Store Management System is a comprehensive application designed to h
   - Search for customer details using their phone number for billing purposes.
 
 ## Team Members
-- **Yuvraj Chopra**: Database (CSV files) design; wrote `fileHandling.h` and `coreFunctionality.h`.
-- **Parth Kohli**: Worked on `main.cpp` and assisted with `coreFunctionality.h`.
-- **Navkirat Singh**: Worked on `coreFunctionality.h` and `main.cpp`.
+- **Yuvraj Chopra** (282) : Database (CSV files) design; wrote `fileHandling.h` and `coreFunctionality.h`.
+- **Parth Kohli** (312) : Worked on `main.cpp` and assisted with `coreFunctionality.h`.
+- **Navkirat Singh** (316) : Worked on `coreFunctionality.h` and `main.cpp`.
 
 ## Setup Instructions
 
