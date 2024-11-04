@@ -215,7 +215,6 @@ public:
         string line;
         bool employeeFound = false;
 
-        // Read each line from the file
         while (getline(fin, line))
         {
             stringstream s(line);
@@ -225,19 +224,17 @@ public:
             getline(s, name, ',');
             getline(s, salary, ',');
 
-            // Check if the empId matches the current line
             if (id == empId)
             {
                 employeeFound = true;
                 cout << "Employee Details:\n";
                 cout << "ID: " << id << ", Name: " << name << ", Salary: " << salary << endl;
-                break; // Stop searching after finding the employee
+                break;
             }
         }
 
         fin.close();
 
-        // If the employee was not found, notify the user
         if (!employeeFound)
         {
             cout << "Employee with ID \"" << empId << "\" not found." << endl;
@@ -264,7 +261,6 @@ public:
             stringstream s(line);
             string name, email, password, phoneNumber, status;
 
-            // Extracting fields from the line
             getline(s, name, ','); 
             getline(s, email, ',');   
             getline(s, password, ',');
