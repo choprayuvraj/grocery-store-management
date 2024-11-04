@@ -19,7 +19,6 @@ The Grocery Store Management System is a comprehensive application designed to h
 - **Billing System**: 
   - Fetch sales data.
   - View the number of billings.
-  - Access billing history.
 - **Employee Management**: 
   - Add new employees.
   - Update employee salaries.
