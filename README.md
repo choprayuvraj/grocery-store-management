@@ -44,9 +44,9 @@ The Grocery Store Management System is a comprehensive application designed to h
 - **Development Environment**: Any standard C++ compiler (e.g., g++, Visual Studio).
 
 ## Team Members
-- **Yuvraj Chopra** (282) : Database (CSV files) design; wrote `fileHandling.h` and `coreFunctionality.h`.
+- **Yuvraj Chopra** (282) : Database (CSV files) design; Worked on `fileHandling.h` and `coreFunctionality.h`.
 - **Parth Kohli** (312) : Worked on `main.cpp` and assisted with `coreFunctionality.h`.
-- **Navkirat Singh** (316) : Worked on `coreFunctionality.h` and `main.cpp`.
+- **Navkirat Singh** (316) : Worked on billing part of `coreFunctionality.h`and debugged `main.cpp`.
 
 ## Setup Instructions
 
