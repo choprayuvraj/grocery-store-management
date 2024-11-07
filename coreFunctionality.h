@@ -215,6 +215,7 @@ public:
         string line;
         bool employeeFound = false;
 
+        // Read each line from the file
         while (getline(fin, line))
         {
             stringstream s(line);
@@ -224,17 +225,19 @@ public:
             getline(s, name, ',');
             getline(s, salary, ',');
 
+            // Check if the empId matches the current line
             if (id == empId)
             {
                 employeeFound = true;
                 cout << "Employee Details:\n";
                 cout << "ID: " << id << ", Name: " << name << ", Salary: " << salary << endl;
-                break;
+                break; // Stop searching after finding the employee
             }
         }
 
         fin.close();
 
+        // If the employee was not found, notify the user
         if (!employeeFound)
         {
             cout << "Employee with ID \"" << empId << "\" not found." << endl;
@@ -259,31 +262,24 @@ public:
         while (getline(fin, line))
         {
             stringstream s(line);
-            string name, email, password, phoneNumber, status;
+            string name, phoneNumber;
 
-            getline(s, name, ','); 
-            getline(s, email, ',');   
-            getline(s, password, ',');
-            getline(s, phoneNumber, ','); 
-            getline(s, status);          
+            getline(s, name, ',');
+            getline(s, phoneNumber, ',');
 
-            
-            string searchNumber = PhoneNumber;
-
-            if (phoneNumber == searchNumber)
+            if (phoneNumber == PhoneNumber)
             {
                 CustomerFound = true;
-                cout << "Customer Details:\n";
-                cout << "Name: " << name << ", Email: " << email << ", Phone Number: " << phoneNumber << endl;
+                cout << "Item Details:\n";
+                cout << "Name: " << name << ", Phone Number: " << phoneNumber << endl;
                 break;
             }
-        }
+            fin.close();
 
-        fin.close();
-
-        if (!CustomerFound)
-        {
-            cout << "Customer with Phone Number: " << PhoneNumber << " not found." << endl;
+            if (!CustomerFound)
+            {
+                cout << "Customer with Name :" << name << "not found." << endl;
+            }
         }
     }
 };
@@ -298,23 +294,24 @@ public:
             cout << items[i] << endl;
         }
     }
-    void ReceiptGenerator(vector<string> &BuyItems, const int &TotalPrice, const string &Name, const string &PhoneNumber)
+    void ReceiptGenerator(vector<string> &BuyItems, const int &TotalPrice, const string &Name, const string &PhoneNumber, const string &Date)
     {
 
-        cout << "=====================================" << endl;
-        cout << "        Grocery Store - Receipt         " << endl;
-        cout << "======================================" << endl;
+        cout << "======================================================" << endl;
+        cout << "        Grocery Store - Billing Receipt         " << endl;
+        cout << "======================================================" << endl;
         cout << "                                    " << endl;
         cout << " Name :" << Name << "                       " << endl;
         cout << " Phone Number:" << PhoneNumber << "                  " << endl;
-        cout << "=====================================" << endl;
+        cout << " Date :" << Date << "                       " << endl;
+        cout << "======================================================" << endl;
         cout << "                                    " << endl;
-        cout << "Items:       price:          quantity:      " << endl;
+        cout << "Items:                 price:        quantity(in grams):" << endl;
         print(BuyItems);
         cout << "                                    " << endl;
-        cout << "------------------------------------" << endl;
-        cout << "Total:         " << TotalPrice << "                        " << endl;
-        cout << "=====================================" << endl;
+        cout << "------------------------------------------------------" << endl;
+        cout << "Total:                 " << TotalPrice << "                        " << endl;
+        cout << "======================================================" << endl;
         cout << "                                     " << endl;
         cout << "      Thanks for visiting us         " << endl;
     }
@@ -364,7 +361,7 @@ public:
         file.close();
         cout << "Total Sales: " << totalSales << endl;
     }
-    void AddItemsToReciept(vector<string> &ItemsQtyArray, const string &PhoneNumber, const string &Name, const int &TotalPrice)
+    void AddItemsToReciept(vector<string> &ItemsQtyArray, const string &PhoneNumber, const string &Name, const int &TotalPrice, const string &Date)
     {
         ofstream fout("db/receipt.csv", ios::out | ios::app);
 
@@ -383,9 +380,49 @@ public:
         }
         fout << ItemsQtyArray[ItemsQtyArray.size() - 1];
         fout << "],";
-        fout << TotalPrice << "\n";
+        fout << TotalPrice << ",";
+        fout << Date << "\n";
 
         fout.close();
+    }
+    void searchCustomerByNameInBilling(const string &Name)
+    {
+        ifstream fin("db/receipt.csv");
+        if (!fin)
+        {
+            cerr << "Error opening file for reading." << endl;
+            return;
+        }
+
+        string line;
+        bool itemFound = false;
+
+        while (getline(fin, line))
+        {
+            stringstream s(line);
+            string name, PhoneNo, Items, price, date;
+
+            getline(s, name, ',');
+            getline(s, PhoneNo, ',');
+            getline(s, Items, ',');
+            getline(s, price, ',');
+            getline(s, date, ' ');
+
+            if (Name == name)
+            {
+                itemFound = true;
+                cout << "Item Details:\n";
+                cout << "name: " << Name << ", phone number: " << PhoneNo << ", Items: " << Items << ", price: " << price << ",Date:" << date << endl;
+                break;
+            }
+        }
+
+        fin.close();
+
+        if (!itemFound)
+        {
+            cout << "customer with \"" << Name << "\" not found." << endl;
+        }
     }
     void ShowingBillingHistory()
     {
@@ -450,13 +487,13 @@ public:
         string qty;
         while (true)
         {
-            cout << "select the item id of an item you want to purchase:" << endl;
+            cout << "select the item id of an item you want to purchase or type end to discontinue:" << endl;
             cin >> ItemId;
             if (ItemId == "end")
             {
                 break;
             }
-            cout << "select the quantity of item:" << endl;
+            cout << "select the weight of item(in grams):" << endl;
             cin >> qty;
             ifstream fin2("db/inventory.csv");
             if (!fin2)
@@ -487,8 +524,19 @@ public:
                     int PriceReal = stoi(price) * (stoi(qty)) / 1000;
 
                     string Price = to_string(PriceReal);
-
-                    string TotalItemsAndPrice = name + " " + ":" + "\t\t" + Price + "\t\t" + qty;
+                    string TotalItemsAndPrice;
+                    if (name.size() <= 7)
+                    {
+                        TotalItemsAndPrice = name + "" + "\t\t\t" + Price + "\t\t\t" + qty;
+                    }
+                    else if (name.size() > 15)
+                    {
+                        TotalItemsAndPrice = name + " \t" + Price + "\t\t\t" + qty;
+                    }
+                    else
+                    {
+                        TotalItemsAndPrice = name + "" + "  \t\t" + Price + "\t\t\t" + qty;
+                    }
 
                     string ItemQty = name + "(" + qty + ")";
 
@@ -509,14 +557,59 @@ public:
         }
         string PhoneNo;
         string CustomerName;
-        cout << "Enter your phone number for Billing purposes=";
-        cin >> PhoneNo;
+        string Date;
+        bool isValid = false;
+        while (true)
+        {
+            cout << "Enter your phone number for Billing purposes=";
+            cin >> PhoneNo;
+            if (PhoneNo.size() == 10)
+            {
+                for (int i = 0; i < PhoneNo.size(); i++)
+                {
+                    if ((PhoneNo[i] >= '0' && PhoneNo[i] <= '9'))
+                    {
+                        isValid = true;
+                    }
+                    else
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+                if (isValid)
+                {
+                    break;
+                }
+                else
+                {
+                    cout << "You Can't type Any other character Other than Intergers\n";
+                }
+            }
+            else
+            {
+                cout << "The Phone Number you Typed is Of inncorrect Size, Try Again!\n";
+            }
+        }
         cout << "Enter your name for Billing purposes=";
         cin >> CustomerName;
+        string CurrDate;
+        string Month;
+        string Year;
+        cout << "Enter Today's date :";
+        cin >> CurrDate;
 
-        ReceiptGenerator(BuyItems, TotalPrice, CustomerName, PhoneNo);
+        cout << "Enter Current Month :";
+        cin >> Month;
 
-        AddItemsToReciept(ItemQtyArray, PhoneNo, CustomerName, TotalPrice);
+        cout << "Enter Current Year :";
+        cin >> Year;
+
+        Date = CurrDate + "/" + Month + "/" + Year;
+
+        ReceiptGenerator(BuyItems, TotalPrice, CustomerName, PhoneNo, Date);
+
+        AddItemsToReciept(ItemQtyArray, PhoneNo, CustomerName, TotalPrice, Date);
     }
 };
 
