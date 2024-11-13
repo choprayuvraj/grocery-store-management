@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <ctime>
 #include <vector>
 #include <algorithm>
 
@@ -593,19 +594,15 @@ public:
         }
         cout << "Enter your name for Billing purposes=";
         cin >> CustomerName;
-        string CurrDate;
-        string Month;
-        string Year;
-        cout << "Enter Today's date :";
-        cin >> CurrDate;
+        time_t now = time(0);
+        tm *ltm = localtime(&now);
 
-        cout << "Enter Current Month :";
-        cin >> Month;
+        int CurrDate = ltm->tm_mday;
+        int Month = 1 + ltm->tm_mon;
+        int Year = 1900 + ltm->tm_year;
+        
 
-        cout << "Enter Current Year :";
-        cin >> Year;
-
-        Date = CurrDate + "/" + Month + "/" + Year;
+        Date = to_string(CurrDate) + "/" + to_string(Month) + "/" + to_string(Year);
 
         ReceiptGenerator(BuyItems, TotalPrice, CustomerName, PhoneNo, Date);
 
